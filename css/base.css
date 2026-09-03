@@ -1,1 +1,204 @@
+/* Base CSS Variables & Theme Control */
+:root {
+  --primary-color: #2c3e50;
+  --accent-color: #3498db;
+  --bg-color: #f4f6f9;
+  --card-bg: #ffffff;
+  --text-color: #333333;
+  --text-muted: #7f8c8d;
+  --border-color: #e2e8f0;
+  
+  --owner-theme: #8e44ad;
+  --barber-theme: #27ae60;
+  --danger-color: #e74c3c;
+  --warning-color: #f39c12;
+  
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+}
 
+/* Theme Variant Classes */
+body.theme-dark {
+  --bg-color: #1a1a1a;
+  --card-bg: #2d2d2d;
+  --text-color: #f5f5f5;
+  --text-muted: #aaaaaa;
+  --border-color: #444444;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Prompt, sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* App Container Layout */
+#app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 600px; /* Mobile First Centering */
+  margin: 0 auto;
+  width: 100%;
+  background-color: var(--bg-color);
+  box-shadow: 0 0 20px rgba(0,0,0,0.05);
+  position: relative;
+}
+
+/* Header UI */
+#main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-title h1 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.badge {
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: bold;
+  color: #fff;
+  display: inline-block;
+  margin-bottom: 2px;
+}
+
+body.mode-owner .badge { background-color: var(--owner-theme); }
+body.mode-barber .badge { background-color: var(--barber-theme); }
+
+.btn-icon {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+/* Main Content Area */
+#main-content {
+  flex: 1;
+  padding: 16px;
+  padding-bottom: 80px; /* Nav bar offset */
+}
+
+/* Mode Selection Screen */
+#view-mode-selection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+}
+
+.mode-selection-card {
+  background: var(--card-bg);
+  padding: 32px 24px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  width: 100%;
+}
+
+.mode-selection-card h2 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+  color: var(--primary-color);
+}
+
+.mode-selection-card .subtitle {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+.mode-buttons-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.btn-mode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: var(--radius-md);
+  border: 2px solid transparent;
+  background-color: var(--bg-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-mode .icon { font-size: 2rem; margin-bottom: 8px; }
+.btn-mode .label { font-size: 1.2rem; font-weight: bold; }
+.btn-mode .desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
+
+.btn-owner:hover, .btn-owner:focus {
+  border-color: var(--owner-theme);
+  background-color: rgba(142, 68, 173, 0.05);
+}
+
+.btn-barber:hover, .btn-barber:focus {
+  border-color: var(--barber-theme);
+  background-color: rgba(39, 174, 96, 0.05);
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 600px;
+  background-color: var(--card-bg);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 0;
+  z-index: 100;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex: 1;
+}
+
+.nav-item .nav-icon { font-size: 1.3rem; }
+.nav-item.active { color: var(--accent-color); font-weight: bold; }
+
+body.mode-owner .nav-item.active { color: var(--owner-theme); }
+body.mode-barber .nav-item.active { color: var(--barber-theme); }
