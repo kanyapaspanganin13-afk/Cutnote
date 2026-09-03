@@ -1,1 +1,65 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barber Management System</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/owner.css">
+  <link rel="stylesheet" href="css/barber.css">
+</head>
+<body class="mode-none">
 
+  <!-- Shell Wrapper -->
+  <div id="app-container">
+    
+    <!-- Header / Navbar (แสดงเมื่อเข้า Mode แล้ว) -->
+    <header id="main-header" class="hidden">
+      <div class="header-title">
+        <span id="mode-badge" class="badge"></span>
+        <h1 id="page-title">Barber Management</h1>
+      </div>
+      <div class="header-actions">
+        <button id="btn-settings" class="btn-icon" title="ตั้งค่า">⚙️</button>
+      </div>
+    </header>
+
+    <!-- Main Content Container (Dynamic Injection) -->
+    <main id="main-content">
+      <!-- 1. Mode Selection Screen (Default View) -->
+      <section id="view-mode-selection" class="view-screen">
+        <div class="mode-selection-card">
+          <h2>BARBER MANAGEMENT SYSTEM</h2>
+          <p class="subtitle">เลือกโหมดการใช้งานเพื่อเริ่มต้น</p>
+          
+          <div class="mode-buttons-group">
+            <button id="btn-select-owner" class="btn-mode btn-owner">
+              <span class="icon">👑</span>
+              <span class="label">OWNER</span>
+              <span class="desc">เจ้าของร้าน (รายรับ 100%)</span>
+            </button>
+            
+            <button id="btn-select-barber" class="btn-mode btn-barber">
+              <span class="icon">✂️</span>
+              <span class="label">BARBER</span>
+              <span class="desc">ช่างตัดผม (แบ่ง % / บัญชี)</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Dynamic Views Container -->
+      <div id="dynamic-view"></div>
+    </main>
+
+    <!-- Navigation Bar (Bottom Nav for Mobile First) -->
+    <nav id="bottom-nav" class="bottom-nav hidden">
+      <!-- Dynamic Nav Items dynamically injected based on active mode -->
+    </nav>
+
+  </div>
+
+  <!-- Main Application Script (ES Module Entry Point) -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
