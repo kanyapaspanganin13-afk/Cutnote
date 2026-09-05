@@ -1,47 +1,44 @@
-/* ===== รีเซ็ตพื้นฐาน + รองรับมือถือ ===== */
+/* ===== พื้นฐาน รองรับมือถือ ===== */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-html {
-  font-size: 14px;
-}
-
-body {
+html, body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
   background: #f0f4f8;
-  min-height: 100vh;
   color: #1e293b;
+  min-height: 100vh;
 }
 
 /* ===== หน้าเลือกโหมด ===== */
 .welcome-container {
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
-  padding: 20px 16px 40px;
+  padding: 24px 16px 60px;
 }
 
 .welcome-title {
-  text-align: center;
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 900;
-  margin: 20px 0 8px;
+  text-align: left;
+  margin-bottom: 6px;
   color: #0f172a;
 }
 
 .welcome-subtitle {
-  text-align: center;
-  color: #64748b;
-  margin-bottom: 24px;
   font-size: 15px;
+  color: #64748b;
+  text-align: left;
+  margin-bottom: 20px;
 }
 
-/* ===== แถวปุ่มจัดการระบบ ===== */
+/* ===== แถวปุ่มจัดการระบบ 4 ปุ่ม ===== */
 .system-buttons-row {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   margin-bottom: 28px;
 }
@@ -50,29 +47,35 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 4px;
-  padding: 14px 10px;
+  padding: 12px 8px;
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 14px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
+}
+
+.system-btn:hover {
+  border-color: #3b82f6;
+  background: #eff6ff;
 }
 
 .system-btn:active {
-  transform: scale(0.97);
-  background: #eff6ff;
-  border-color: #3b82f6;
+  transform: scale(0.96);
 }
 
 .system-icon {
   font-size: 22px;
+  line-height: 1;
 }
 
 .system-btn span:nth-child(2) {
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 600;
   color: #334155;
+  text-align: center;
 }
 
 /* ===== ปุ่มเลือกโหมด ===== */
@@ -85,81 +88,86 @@ body {
 .mode-btn {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 20px;
+  gap: 16px;
+  width: 100%;
+  padding: 24px 20px;
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 16px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
   text-align: left;
-  width: 100%;
 }
 
-.mode-btn:active {
-  transform: scale(0.98);
+.mode-btn:hover {
   border-color: #3b82f6;
   background: #eff6ff;
 }
 
+.mode-btn:active {
+  transform: scale(0.98);
+}
+
 .mode-icon {
-  font-size: 32px;
+  font-size: 36px;
+  line-height: 1;
 }
 
 .mode-btn strong {
   display: block;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 800;
   color: #0f172a;
+  margin-bottom: 4px;
 }
 
 .mode-btn small {
   display: block;
-  font-size: 12px;
+  font-size: 13px;
   color: #64748b;
-  margin-top: 3px;
+  line-height: 1.4;
 }
 
-/* ===== ปรับขนาดหน้าจอเล็กสุด ===== */
-@media (max-width: 480px) {
+/* ===== มือถือ หน้าจอเล็ก ===== */
+@media (max-width: 600px) {
   .welcome-container {
-    padding: 14px 12px 30px;
+    padding: 16px 12px 40px;
   }
 
   .welcome-title {
-    font-size: 22px;
-    margin-top: 10px;
+    font-size: 24px;
   }
 
   .system-buttons-row {
-    gap: 8px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 
   .system-btn {
-    padding: 12px 6px;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 12px 14px;
   }
 
   .system-icon {
     font-size: 20px;
   }
 
+  .system-btn span:nth-child(2) {
+    font-size: 14px;
+  }
+
   .mode-btn {
-    padding: 16px;
+    padding: 18px 16px;
     gap: 12px;
   }
 
   .mode-icon {
-    font-size: 28px;
+    font-size: 30px;
   }
 
   .mode-btn strong {
     font-size: 16px;
-  }
-}
-
-/* ===== ปรับหน้าจอใหญ่ ===== */
-@media (min-width: 768px) {
-  .system-buttons-row {
-    grid-template-columns: repeat(4, 1fr);
   }
 }
