@@ -9,9 +9,39 @@ const BarberRecords = {
       summary.barberTotal,
       Store.settings.guaranteeMinIncome
     );
-
     return `
       <div class="records-page">
+
+        <!-- ✅ แทรกส่วนปุ่มและช่องใหม่ตรงนี้ เป็นอันดับแรก -->
+        <div class="top-buttons">
+          <button class="top-btn">
+            <span class="icon">🛡️</span>
+            ประกันรายได้
+          </button>
+          <button class="top-btn">
+            <span class="icon">🏝️</span>
+            บันทึกวันหยุด
+          </button>
+          <button class="top-btn">
+            <span class="icon">⚙️</span>
+            ตั้งค่าระบบ
+          </button>
+        </div>
+
+        <div class="form-group">
+          <label>📅 วันที่</label>
+          <input type="date" id="date">
+        </div>
+
+        <div class="payment-buttons">
+          <button class="pay-btn">💵 เงินสด</button>
+          <button class="pay-btn">🔄 แบ่ง</button>
+          <button class="pay-btn">🗳️ ผสม</button>
+        </div>
+
+        <button class="save-btn">บันทึกข้อมูล</button>
+        <!-- ✅ จบส่วนที่แทรก -->
+
         <section class="card form-card">
           <h2 class="card-title">➕ บันทึกการให้บริการ</h2>
           <form id="barber-record-form" class="form-grid">
@@ -55,7 +85,6 @@ const BarberRecords = {
             <div class="stat-box transfer"><div class="stat-label">เงินโอน</div><div class="stat-value">฿${summary.transferTotal.toLocaleString()}</div></div>
             <div class="stat-box total"><div class="stat-label">ยอดรวม</div><div class="stat-value">฿${summary.totalSales.toLocaleString()}</div></div>
           </div>
-
           <div class="income-split-box">
             <h3>💰 รายได้แบ่งตามสัดส่วน</h3>
             <div class="split-row">
@@ -67,7 +96,6 @@ const BarberRecords = {
               <strong class="shop-income">฿${summary.shopTotal.toLocaleString()}</strong>
             </div>
           </div>
-
           ${this.renderGuaranteeBox(guarantee)}
         </section>
 
@@ -137,7 +165,6 @@ const BarberRecords = {
   addRecord() {
     const price = Number(document.getElementById('price').value);
     const split = Calculations.splitIncome(price);
-
     const record = {
       id: Store.generateId(),
       date: Store.getToday(),
