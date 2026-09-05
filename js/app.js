@@ -11,7 +11,7 @@ const App = {
   renderLayout() {
     const app = document.getElementById('app');
 
-    // 🔹 หน้าเลือกโหมด
+    // 🔹 หน้าเลือกโหมด + ปุ่มการจัดการระบบ
     if (this.currentPage === 'welcome' || !this.userMode) {
       app.innerHTML = this.renderWelcomePage();
       this.bindWelcomeEvents();
@@ -24,23 +24,7 @@ const App = {
         <!-- ปุ่มกลับไปหน้าแรก -->
         <button class="back-btn" id="back-to-welcome">← กลับ</button>
 
-        <h1 class="app-title">BARBER SHOP</h1>
-
-        <!-- ปุ่มบนสุด 3 ปุ่ม -->
-        <div class="top-row">
-          <button class="top-btn">
-            <span class="icon-wrap">🛡️</span>
-            ประกันรายได้
-          </button>
-          <button class="top-btn">
-            <span class="icon-wrap">🏝️</span>
-            บันทึกวันหยุด
-          </button>
-          <button class="top-btn">
-            <span class="icon-wrap">⚙️</span>
-            ตั้งค่าระบบ
-          </button>
-        </div>
+        <h1 class="app-title">💈 BARBER SHOP</h1>
 
         <!-- แสดงเนื้อหาตามแท็บ -->
         <div id="page-record" class="page active">
@@ -79,12 +63,34 @@ const App = {
     else BarberRecords.bindEvents();
   },
 
-  // ===== หน้าเลือกโหมด =====
+  // ===== หน้าเลือกโหมด + ปุ่มจัดการระบบ =====
   renderWelcomePage() {
     return `
-      <div class="welcome-card">
+      <div class="welcome-container">
         <h1 class="welcome-title">💈 BARBER SHOP</h1>
         <p class="welcome-subtitle">กรุณาเลือกโหมดการใช้งาน</p>
+
+        <!-- 🔹 ปุ่มการจัดการระบบ -->
+        <div class="system-buttons-row">
+          <button class="system-btn" data-action="guarantee">
+            <span class="system-icon">🛡️</span>
+            <span>ประกันรายได้</span>
+          </button>
+          <button class="system-btn" data-action="holiday">
+            <span class="system-icon">🏝️</span>
+            <span>บันทึกวันหยุด</span>
+          </button>
+          <button class="system-btn" data-action="settings">
+            <span class="system-icon">⚙️</span>
+            <span>ตั้งค่าระบบ</span>
+          </button>
+          <button class="system-btn" data-action="closeShop">
+            <span class="system-icon">📅</span>
+            <span>ปิดร้าน</span>
+          </button>
+        </div>
+
+        <!-- 🔹 ปุ่มเลือกโหมด -->
         <div class="mode-buttons">
           <button class="mode-btn" data-mode="owner">
             <span class="mode-icon">👑</span>
@@ -106,15 +112,43 @@ const App = {
   },
 
   bindWelcomeEvents() {
+    // เลือกโหมดการใช้งาน
     document.querySelectorAll('.mode-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const mode = e.currentTarget.dataset.mode;
         this.userMode = mode;
-        Store.setMode(mode); // บันทึกโหมดลง Store
+        Store.setMode(mode);
         this.currentPage = 'record';
-        this.renderLayout(); // โหลดหน้าหลักทันที
+        this.renderLayout();
       });
     });
+
+    // ปุ่มจัดการระบบ
+    document.querySelectorAll('.system-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const action = e.currentTarget.dataset.action;
+        this.handleSystemAction(action);
+      });
+    });
+  },
+
+  handleSystemAction(action) {
+    switch(action) {
+      case 'guarantee':
+        Toast.show('เปิดหน้าประกันรายได้', 'info');
+        break;
+      case 'holiday':
+        Toast.show('เปิดหน้าบันทึกวันหยุด', 'info');
+        break;
+      case 'settings':
+        Toast.show('เปิดหน้าตั้งค่าระบบ', 'info');
+        break;
+      case 'closeShop':
+        if (confirm('ต้องการปิดร้านและสรุปยอดวันนี้หรือไม่?')) {
+          Toast.show('ปิดร้านเรียบร้อย ✅ สรุปยอดเรียบร้อย', 'success');
+        }
+        break;
+    }
   },
 
   // ===== ปุ่มกลับไปหน้าเลือกโหมด =====
@@ -137,9 +171,7 @@ const App = {
   },
 
   switchTab(pageName) {
-    // สลับสไตล์ปุ่มเมนู
     document.querySelectorAll('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.page === pageName));
-    // สลับแสดงหน้า
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(`page-${pageName}`).classList.add('active');
   }
