@@ -1,65 +1,46 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cutnote System</title>
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/owner.css">
-  <link rel="stylesheet" href="css/barber.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cutnote — Hairdresser & Barber Management System</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="mode-none">
+<body>
+    <div id="toastContainer" class="toast-container"></div>
+    <div id="modalContainer" class="modal-container hidden"></div>
+    <div id="app" class="app-root"></div>
 
-  <!-- Shell Wrapper -->
-  <div id="app-container">
-    
-    <!-- Header / Navbar (แสดงเมื่อเข้า Mode แล้ว) -->
-    <header id="main-header" class="hidden">
-      <div class="header-title">
-        <span id="mode-badge" class="badge"></span>
-        <h1 id="page-title">Barber Management</h1>
-      </div>
-      <div class="header-actions">
-        <button id="btn-settings" class="btn-icon" title="ตั้งค่า">⚙️</button>
-      </div>
-    </header>
+    <!-- Core Scripts -->
+    <script src="js/data/models.js"></script>
+    <script src="js/data/store.js"></script>
+    <script src="js/utils/formatters.js"></script>
+    <script src="js/utils/calculations.js"></script>
+    <script src="js/services/audioService.js"></script>
+    <script src="js/services/backupService.js"></script>
+    <script src="js/services/lineService.js"></script>
+    <script src="js/components/navbar.js"></script>
+    <script src="js/components/modal.js"></script>
+    <script src="js/components/toast.js"></script>
 
-    <!-- Main Content Container (Dynamic Injection) -->
-    <main id="main-content">
-      <!-- 1. Mode Selection Screen (Default View) -->
-      <section id="view-mode-selection" class="view-screen">
-        <div class="mode-selection-card">
-          <h2>BARBER MANAGEMENT SYSTEM</h2>
-          <p class="subtitle">เลือกโหมดการใช้งานเพื่อเริ่มต้น</p>
-          
-          <div class="mode-buttons-group">
-            <button id="btn-select-owner" class="btn-mode btn-owner">
-              <span class="icon">👑</span>
-              <span class="label">OWNER</span>
-              <span class="desc">เจ้าของร้าน (รายรับ 100%)</span>
-            </button>
-            
-            <button id="btn-select-barber" class="btn-mode btn-barber">
-              <span class="icon">✂️</span>
-              <span class="label">BARBER</span>
-              <span class="desc">ช่างตัดผม (แบ่ง % / บัญชี)</span>
-            </button>
-          </div>
-        </div>
-      </section>
+    <!-- Business Logic Modules -->
+    <script src="js/owner/ownerRecords.js"></script>
+    <script src="js/owner/ownerReports.js"></script>
+    <script src="js/owner/ownerSettings.js"></script>
 
-      <!-- Dynamic Views Container -->
-      <div id="dynamic-view"></div>
-    </main>
+    <script src="js/barber/barberRecords.js"></script>
+    <script src="js/barber/barberReports.js"></script>
+    <script src="js/barber/barberAccount.js"></script>
+    <script src="js/barber/barberHolidays.js"></script>
+    <script src="js/barber/barberSettings.js"></script>
 
-    <!-- Navigation Bar (Bottom Nav for Mobile First) -->
-    <nav id="bottom-nav" class="bottom-nav hidden">
-      <!-- Dynamic Nav Items dynamically injected based on active mode -->
-    </nav>
-
-  </div>
-
-  <!-- Main Application Script (ES Module Entry Point) -->
-  <script type="module" src="js/app.js"></script>
+    <script src="js/pages/modeSelect.js"></script>
+    <script src="js/pages/ownerDashboard.js"></script>
+    <script src="js/pages/barberDashboard.js"></script>
+    <script src="js/pages/settingsPage.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
