@@ -2,25 +2,9 @@ const OwnerRecords = {
   render() {
     const today = Store.getToday();
     const dayRecords = Store.records.filter(r => r.date === today);
-    const summary = this.calcSummary(dayRecords);
+
     return `
       <div class="records-page">
-        <!-- ✅ ปุ่มบนสุด 3 ปุ่ม -->
-        <div class="top-buttons">
-          <button class="top-btn">
-            <span class="icon">🛡️</span>
-            ประกันรายได้
-          </button>
-          <button class="top-btn">
-            <span class="icon">🏝️</span>
-            บันทึกวันหยุด
-          </button>
-          <button class="top-btn">
-            <span class="icon">⚙️</span>
-            ตั้งค่าระบบ
-          </button>
-        </div>
-
         <!-- ✅ วันที่ + ประเภทลูกค้า -->
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
             <div style="background: var(--bg); border: 1px solid var(--border); border-radius:15px; height:55px; position:relative; display:flex; align-items:center; justify-content:center;">
@@ -87,12 +71,6 @@ const OwnerRecords = {
             </select>
         </div>
 
-        <!-- ✅ ช่างผู้ให้บริการ -->
-        <div style="margin-bottom: 8px;">
-            <input type="text" id="barber" placeholder="✂️ ช่างผู้ให้บริการ" 
-                   style="width:100%; height:60px; border-radius:15px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size:18px; font-weight:700; padding:0 15px; outline:none; box-sizing:border-box;">
-        </div>
-
         <!-- ✅ ราคา + ทิปโอน -->
         <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 8px; margin-bottom: 15px; height: 95px; align-items: stretch;">
             <div style="position: relative; background: var(--bg); border: 2px solid var(--accent); border-radius: 20px; display: flex; align-items: center; overflow: hidden;">
@@ -117,7 +95,7 @@ const OwnerRecords = {
                     <option value="Free-Trans">🎁 ฟรี + 📱 เงินโอน</option>
                 </select>
             </div>
-            <button class="btn-pay" id="owner-save-btn" style="width: 100%; height: 100%; margin: 0; border-radius: 18px; background: #1e3a8a; color: white; border: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 18px; font-weight: 900; cursor: pointer;">
+            <button class="btn-pay" id="barber-save-btn" style="width: 100%; height: 100%; margin: 0; border-radius: 18px; background: #1e3a8a; color: white; border: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 18px; font-weight: 900; cursor: pointer;">
                 <span>บันทึกข้อมูล</span>
             </button>
         </div>
@@ -136,20 +114,8 @@ const OwnerRecords = {
             </div>
         </div>
 
-        <!-- ✅ ส่วนสรุปยอด + ปุ่มปิดร้าน เก็บไว้เหมือนเดิมทุกประการ -->
-        <section class="card summary-card">
-          <h2 class="card-title">📊 สรุปยอดวันนี้</h2>
-          <div class="summary-grid">
-            <div class="stat-box"><div class="stat-label">รายการทั้งหมด</div><div class="stat-value">${summary.count}</div></div>
-            <div class="stat-box"><div class="stat-label">ลูกค้าใหม่</div><div class="stat-value">${summary.newCustomers}</div></div>
-            <div class="stat-box"><div class="stat-label">ลูกค้าประจำ</div><div class="stat-value">${summary.regularCustomers}</div></div>
-            <div class="stat-box cash"><div class="stat-label">เงินสด</div><div class="stat-value">฿${summary.cashTotal.toLocaleString()}</div></div>
-            <div class="stat-box transfer"><div class="stat-label">เงินโอน</div><div class="stat-value">฿${summary.transferTotal.toLocaleString()}</div></div>
-            <div class="stat-box total"><div class="stat-label">ยอดรวมทั้งสิ้น</div><div class="stat-value">฿${summary.grandTotal.toLocaleString()}</div></div>
-          </div>
-          <button id="close-day-btn" class="btn warning-btn full-width mt-16">📅 ปิดร้าน</button>
-        </section>
-        <section class="card list-card">
+        <!-- ✅ รายการบันทึกประจำวัน -->
+        <section class="card list-card" style="margin-top: 20px;">
           <h2 class="card-title">📋 รายการวันนี้ (${dayRecords.length})</h2>
           <div class="record-list">
             ${dayRecords.length === 0 ? '<p class="empty-text">ยังไม่มีรายการ</p>' : dayRecords.map(r => this.renderRecordRow(r)).join('')}
@@ -163,59 +129,36 @@ const OwnerRecords = {
     return `
       <div class="record-row" data-id="${r.id}">
         <div class="row-main">
-          <div class="row-service">${r.service} — ${r.barber || 'ไม่ระบุช่าง'}</div>
+          <div class="row-service">${r.service} — ${r.barber || 'ไม่ระบุ'}</div>
           <div class="row-price">฿${Number(r.price).toLocaleString()}</div>
         </div>
         <div class="row-meta">
           <span class="tag ${r.customerType}">${r.customerType === 'new' ? 'ลูกค้าใหม่' : 'ลูกค้าประจำ'}</span>
-          <span class="tag ${r.paymentMethod}">${r.paymentMethod === 'cash' ? 'เงินสด' : r.paymentMethod === 'transfer' ? 'โอน' : r.paymentMethod === 'mixed' ? 'ผสม' : 'ฟรี'}</span>
+          <span class="tag ${r.paymentMethod}">${r.paymentMethod === 'cash' ? 'เงินสด' : 'โอน'}</span>
           <span class="row-time">${r.time}</span>
+          <span class="tag income-tag">ช่าง ฿${Number(r.barberIncome).toLocaleString()} / ร้าน ฿${Number(r.shopIncome).toLocaleString()}</span>
           <button class="delete-btn" data-id="${r.id}">🗑️</button>
         </div>
       </div>
     `;
   },
 
-  calcSummary(records) {
-    // คำนวณแยกประเภทชำระเงิน
-    let cashTotal = 0, transferTotal = 0;
-    records.forEach(r => {
-      const amount = Number(r.price) || 0;
-      if (r.paymentMethod === 'cash') cashTotal += amount;
-      else if (r.paymentMethod === 'transfer') transferTotal += amount;
-      else if (r.paymentMethod === 'mixed') {
-        cashTotal += Number(r.mixCash) || 0;
-        transferTotal += Number(r.mixTrans) || 0;
-      }
-    });
-    return {
-      count: records.length,
-      newCustomers: records.filter(r => r.customerType === 'new').length,
-      regularCustomers: records.filter(r => r.customerType === 'regular').length,
-      cashTotal,
-      transferTotal,
-      grandTotal: cashTotal + transferTotal
-    };
-  },
-
   bindEvents() {
     // กดปุ่มบันทึกข้อมูล
-    document.getElementById('owner-save-btn')?.addEventListener('click', (e) => {
+    document.getElementById('barber-save-btn')?.addEventListener('click', (e) => {
       e.preventDefault();
       this.addRecord();
     });
 
-    // แสดง/ซ่อนช่องกรอกเงินผสม
+    // แสดง/ซ่อนช่องกรอกเงินผสม เมื่อเลือกประเภทชำระเงิน
     document.getElementById('payTypeSelect')?.addEventListener('change', (e) => {
       const mixPanel = document.getElementById('mixPanel');
-      if (e.target.value === 'Mix') {
-        mixPanel.style.display = 'block';
-      } else {
-        mixPanel.style.display = 'none';
+      if (mixPanel) {
+        mixPanel.style.display = e.target.value === 'Mix' ? 'block' : 'none';
       }
     });
 
-    // แสดงวันที่แบบไทยเมื่อเปลี่ยน
+    // อัปเดตข้อความวันที่เมื่อเปลี่ยนค่า
     document.getElementById('dateInp')?.addEventListener('change', (e) => {
       const dateDisplay = document.getElementById('dateDisplay');
       if (dateDisplay) {
@@ -224,21 +167,12 @@ const OwnerRecords = {
       }
     });
 
-    // ปุ่มลบรายการ
     document.querySelectorAll('.delete-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        this.deleteRecord(e.target.dataset.id);
-      });
-    });
-
-    // ปุ่มปิดร้าน
-    document.getElementById('close-day-btn')?.addEventListener('click', () => {
-      Toast.show('ปิดร้านและสรุปยอดเรียบร้อย ✅', 'success');
+      btn.addEventListener('click', (e) => this.deleteRecord(e.target.dataset.id));
     });
   },
 
   addRecord() {
-    // อ่านค่าจากฟอร์มใหม่
     const dateVal = document.getElementById('dateInp')?.value || Store.getToday();
     const custTypeSelect = document.getElementById('custType');
     const customerType = custTypeSelect ? (custTypeSelect.value === 'none' ? 'regular' : custTypeSelect.value) : 'regular';
@@ -247,32 +181,24 @@ const OwnerRecords = {
     const hairStyle = document.getElementById('hairStyle')?.value || '';
     const extra1 = document.getElementById('extra1')?.value || '';
     const extra2 = document.getElementById('extra2')?.value || '';
-    const barber = document.getElementById('barber')?.value.trim() || '';
     const price = Number(document.getElementById('priceInp')?.value) || 0;
     const tip = Number(document.getElementById('tipInp')?.value) || 0;
     const payType = document.getElementById('payTypeSelect')?.value || 'Cash';
 
-    // อ่านค่ากรณีผสม
-    const mixCash = Number(document.getElementById('mixCash')?.value) || 0;
-    const mixTrans = Number(document.getElementById('mixTrans')?.value) || 0;
-
-    // รวมรายการบริการ
     let serviceParts = [];
     if (hairStyle) serviceParts.push(hairStyle);
     if (extra1) serviceParts.push(extra1);
     if (extra2) serviceParts.push(extra2);
     const service = serviceParts.length > 0 ? serviceParts.join(' + ') : 'บริการ';
 
-    // กำหนดช่องทางชำระเงิน
     let paymentMethod = 'cash';
     if (payType === 'Cash') paymentMethod = 'cash';
     else if (payType === 'Trans' || payType === 'Free-Trans') paymentMethod = 'transfer';
     else if (payType === 'Mix') paymentMethod = 'mixed';
     else if (payType.startsWith('Free')) paymentMethod = 'free';
 
-    // คำนวณยอดรวม
-    let totalAmount = price + tip;
-    if (payType === 'Mix') totalAmount = mixCash + mixTrans;
+    const totalAmount = price + tip;
+    const split = Calculations.splitIncome(totalAmount);
 
     const record = {
       id: Store.generateId(),
@@ -283,18 +209,20 @@ const OwnerRecords = {
       service: service,
       price: totalAmount,
       tip: tip,
-      mixCash: mixCash,
-      mixTrans: mixTrans,
       customerType: customerType,
       paymentMethod: paymentMethod,
       payType: payType,
-      barber: barber,
+      barber: Store.currentBarber || '',
+      barberIncome: split.barberIncome,
+      shopIncome: split.shopIncome,
+      guaranteeApplied: false,
+      guaranteeDifference: 0,
       createdAt: new Date().toISOString()
     };
 
     Store.records.push(record);
     Store.saveRecords();
-    Toast.show('บันทึกสำเร็จ ✅', 'success');
+    Toast.show('บันทึกสำเร็จ ✅ แบ่งรายได้อัตโนมัติ', 'success');
     App.route();
   },
 
