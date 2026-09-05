@@ -63,14 +63,14 @@ const App = {
     else BarberRecords.bindEvents();
   },
 
-  // ===== หน้าเลือกโหมด + ปุ่มจัดการระบบ =====
+  // ===== หน้าเลือกโหมด + ปุ่มจัดการระบบ ✅ ปรับโครงสร้างปุ่มใหม่ =====
   renderWelcomePage() {
     return `
       <div class="welcome-container">
         <h1 class="welcome-title">💈 BARBER SHOP</h1>
         <p class="welcome-subtitle">กรุณาเลือกโหมดการใช้งาน</p>
 
-        <!-- 🔹 ปุ่มการจัดการระบบ -->
+        <!-- ✅ ปุ่มจัดการระบบ 4 ปุ่ม มีไอคอน+ข้อความชัดเจน -->
         <div class="system-buttons-row">
           <button class="system-btn" data-action="guarantee">
             <span class="system-icon">🛡️</span>
@@ -90,7 +90,7 @@ const App = {
           </button>
         </div>
 
-        <!-- 🔹 ปุ่มเลือกโหมด -->
+        <!-- ✅ ปุ่มเลือกโหมด -->
         <div class="mode-buttons">
           <button class="mode-btn" data-mode="owner">
             <span class="mode-icon">👑</span>
