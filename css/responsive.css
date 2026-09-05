@@ -1,0 +1,11 @@
+@media (max-width: 640px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .summary-grid { grid-template-columns: repeat(2, 1fr); }
+  .navbar-top { padding: 10px 12px; }
+  .content-area { padding: 12px; }
+  .card { padding: 14px; }
+  .mode-badge { font-size: 0.75rem; padding: 3px 8px; }
+}
+@media (max-width: 400px) {
+  .summary-grid { grid-template-columns: 1fr; }
+}
