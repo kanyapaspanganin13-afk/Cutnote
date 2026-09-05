@@ -3,9 +3,41 @@ const OwnerRecords = {
     const today = Store.getToday();
     const dayRecords = Store.records.filter(r => r.date === today);
     const summary = this.calcSummary(dayRecords);
-
     return `
       <div class="records-page">
+
+        <!-- ✅ ปุ่มด้านบนเหมือนหน้าช่าง -->
+        <div class="top-buttons">
+          <button class="top-btn">
+            <span class="icon">🛡️</span>
+            ประกันรายได้
+          </button>
+          <button class="top-btn">
+            <span class="icon">🏝️</span>
+            บันทึกวันหยุด
+          </button>
+          <button class="top-btn">
+            <span class="icon">⚙️</span>
+            ตั้งค่าระบบ
+          </button>
+        </div>
+
+        <!-- ✅ ช่องวันที่ -->
+        <div class="form-group">
+          <label>📅 วันที่</label>
+          <input type="date" id="date" value="${today}">
+        </div>
+
+        <!-- ✅ ปุ่มช่องทางชำระ -->
+        <div class="payment-buttons">
+          <button class="pay-btn">💵 เงินสด</button>
+          <button class="pay-btn">🔄 แบ่ง</button>
+          <button class="pay-btn">🗳️ ผสม</button>
+        </div>
+
+        <!-- ✅ ปุ่มบันทึกข้อมูล -->
+        <button class="save-btn">บันทึกข้อมูล</button>
+
         <section class="card form-card">
           <h2 class="card-title">➕ บันทึกการให้บริการ</h2>
           <form id="record-form" class="form-grid">
