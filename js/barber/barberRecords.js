@@ -2,31 +2,9 @@ const BarberRecords = {
   render() {
     const today = Store.getToday();
     const dayRecords = Store.records.filter(r => r.date === today);
-    const summary = Calculations.summarizeRecords(dayRecords);
-    
-    // คำนวณประกันรายได้
-    const guarantee = Calculations.calcGuarantee(
-      summary.barberTotal,
-      Store.settings.guaranteeMinIncome
-    );
+
     return `
       <div class="records-page">
-        <!-- ✅ ปุ่มบนสุด 3 ปุ่ม -->
-        <div class="top-row">
-          <button class="top-btn">
-            <span class="icon-wrap">🛡️</span>
-            ประกันรายได้
-          </button>
-          <button class="top-btn">
-            <span class="icon-wrap">🏝️</span>
-            บันทึกวันหยุด
-          </button>
-          <button class="top-btn">
-            <span class="icon-wrap">⚙️</span>
-            ตั้งค่าระบบ
-          </button>
-        </div>
-
         <!-- ✅ วันที่ + ประเภทลูกค้า -->
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
             <div style="background: var(--bg); border: 1px solid var(--border); border-radius:15px; height:55px; position:relative; display:flex; align-items:center; justify-content:center;">
@@ -136,61 +114,13 @@ const BarberRecords = {
             </div>
         </div>
 
-        <!-- ✅ ส่วนสรุปยอดเดิม ไม่แก้ไข -->
-        <section class="card summary-card">
-          <h2 class="card-title">📊 สรุปยอดวันนี้</h2>
-          <div class="summary-grid">
-            <div class="stat-box"><div class="stat-label">รายการ</div><div class="stat-value">${summary.count}</div></div>
-            <div class="stat-box"><div class="stat-label">ลูกค้าใหม่</div><div class="stat-value">${summary.newCustomers}</div></div>
-            <div class="stat-box"><div class="stat-label">ลูกค้าประจำ</div><div class="stat-value">${summary.regularCustomers}</div></div>
-            <div class="stat-box cash"><div class="stat-label">เงินสด</div><div class="stat-value">฿${summary.cashTotal.toLocaleString()}</div></div>
-            <div class="stat-box transfer"><div class="stat-label">เงินโอน</div><div class="stat-value">฿${summary.transferTotal.toLocaleString()}</div></div>
-            <div class="stat-box total"><div class="stat-label">ยอดรวม</div><div class="stat-value">฿${summary.totalSales.toLocaleString()}</div></div>
-          </div>
-          <div class="income-split-box">
-            <h3>💰 รายได้แบ่งตามสัดส่วน</h3>
-            <div class="split-row">
-              <span>รายได้ของช่าง</span>
-              <strong class="barber-income">฿${summary.barberTotal.toLocaleString()}</strong>
-            </div>
-            <div class="split-row">
-              <span>ยอดที่ร้านได้รับ</span>
-              <strong class="shop-income">฿${summary.shopTotal.toLocaleString()}</strong>
-            </div>
-          </div>
-          ${this.renderGuaranteeBox(guarantee)}
-        </section>
-        <section class="card list-card">
+        <!-- ✅ รายการบันทึกประจำวัน -->
+        <section class="card list-card" style="margin-top: 20px;">
           <h2 class="card-title">📋 รายการวันนี้ (${dayRecords.length})</h2>
           <div class="record-list">
             ${dayRecords.length === 0 ? '<p class="empty-text">ยังไม่มีรายการ</p>' : dayRecords.map(r => this.renderRecordRow(r)).join('')}
           </div>
         </section>
-      </div>
-    `;
-  },
-
-  renderGuaranteeBox(g) {
-    if (!Store.settings.guaranteeEnabled) {
-      return `<div class="guarantee-box info-box">ℹ️ ประกันรายได้: ปิดอยู่ <button class="link-btn" onclick="BarberDashboard.currentTab='settings';BarberDashboard.bindTabEvents();">เปิดที่ตั้งค่า</button></div>`;
-    }
-    if (!g.applicable) {
-      return `
-        <div class="guarantee-box success-box">
-          ✅ รายได้ถึงเกณฑ์ขั้นต่ำ ฿${Store.settings.guaranteeMinIncome.toLocaleString()} แล้ว
-          <div class="guarantee-detail">รายได้จริงครบตามจำนวน ไม่ต้องชดเชย</div>
-        </div>
-      `;
-    }
-    return `
-      <div class="guarantee-box warning-box">
-        ⚠️ ต้องชดเชยตามประกันรายได้
-        <div class="guarantee-detail">
-          <div>เกณฑ์ขั้นต่ำ: ฿${Store.settings.guaranteeMinIncome.toLocaleString()}</div>
-          <div>รายได้จริง: ฿${(Store.settings.guaranteeMinIncome - g.difference).toLocaleString()}</div>
-          <div class="diff-line">ส่วนต่างที่ต้องเพิ่ม: <strong>฿${g.difference.toLocaleString()}</strong></div>
-          <div>รายได้ที่ได้รับจริงทั้งหมด: <strong class="final-sum">฿${g.finalIncome.toLocaleString()}</strong></div>
-        </div>
       </div>
     `;
   },
@@ -223,10 +153,8 @@ const BarberRecords = {
     // แสดง/ซ่อนช่องกรอกเงินผสม เมื่อเลือกประเภทชำระเงิน
     document.getElementById('payTypeSelect')?.addEventListener('change', (e) => {
       const mixPanel = document.getElementById('mixPanel');
-      if (e.target.value === 'Mix') {
-        mixPanel.style.display = 'block';
-      } else {
-        mixPanel.style.display = 'none';
+      if (mixPanel) {
+        mixPanel.style.display = e.target.value === 'Mix' ? 'block' : 'none';
       }
     });
 
@@ -245,7 +173,6 @@ const BarberRecords = {
   },
 
   addRecord() {
-    // อ่านค่าจากฟอร์มใหม่
     const dateVal = document.getElementById('dateInp')?.value || Store.getToday();
     const custTypeSelect = document.getElementById('custType');
     const customerType = custTypeSelect ? (custTypeSelect.value === 'none' ? 'regular' : custTypeSelect.value) : 'regular';
@@ -258,21 +185,18 @@ const BarberRecords = {
     const tip = Number(document.getElementById('tipInp')?.value) || 0;
     const payType = document.getElementById('payTypeSelect')?.value || 'Cash';
 
-    // รวมรายการบริการ
     let serviceParts = [];
     if (hairStyle) serviceParts.push(hairStyle);
     if (extra1) serviceParts.push(extra1);
     if (extra2) serviceParts.push(extra2);
     const service = serviceParts.length > 0 ? serviceParts.join(' + ') : 'บริการ';
 
-    // กำหนดช่องทางชำระเงิน
     let paymentMethod = 'cash';
     if (payType === 'Cash') paymentMethod = 'cash';
     else if (payType === 'Trans' || payType === 'Free-Trans') paymentMethod = 'transfer';
     else if (payType === 'Mix') paymentMethod = 'mixed';
     else if (payType.startsWith('Free')) paymentMethod = 'free';
 
-    // คำนวณราคา (รวมทิปด้วยถ้ามี)
     const totalAmount = price + tip;
     const split = Calculations.splitIncome(totalAmount);
 
