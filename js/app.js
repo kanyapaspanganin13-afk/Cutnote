@@ -18,11 +18,30 @@ const App = {
       return;
     }
 
-    // 🔹 หน้าหลักตามโหมดที่เลือก + สลับแท็บ
+    // 🔹 หน้าหลัก — มีปุ่มกลับด้านบนสุด
     app.innerHTML = `
       <div class="app-card">
+        <!-- ปุ่มกลับไปหน้าแรก -->
+        <button class="back-btn" id="back-to-welcome">← กลับ</button>
+
         <h1 class="app-title">BARBER SHOP</h1>
-        
+
+        <!-- ปุ่มบนสุด 3 ปุ่ม -->
+        <div class="top-row">
+          <button class="top-btn">
+            <span class="icon-wrap">🛡️</span>
+            ประกันรายได้
+          </button>
+          <button class="top-btn">
+            <span class="icon-wrap">🏝️</span>
+            บันทึกวันหยุด
+          </button>
+          <button class="top-btn">
+            <span class="icon-wrap">⚙️</span>
+            ตั้งค่าระบบ
+          </button>
+        </div>
+
         <!-- แสดงเนื้อหาตามแท็บ -->
         <div id="page-record" class="page active">
           ${this.userMode === 'owner' ? OwnerRecords.render() : BarberRecords.render()}
@@ -54,6 +73,7 @@ const App = {
 
     // ผูกอีเวนต์
     this.bindNavEvents();
+    this.bindBackButton();
     // เรียก bindEvents ของหน้านั้นๆ
     if (this.userMode === 'owner') OwnerRecords.bindEvents();
     else BarberRecords.bindEvents();
@@ -68,13 +88,17 @@ const App = {
         <div class="mode-buttons">
           <button class="mode-btn" data-mode="owner">
             <span class="mode-icon">👑</span>
-            <strong>เจ้าของร้าน</strong>
-            <small>ดูแลข้อมูลทั้งหมด, ปิดร้าน, ดูรายงาน</small>
+            <div>
+              <strong>เจ้าของร้าน</strong>
+              <small>ดูแลข้อมูลทั้งหมด, ปิดร้าน, ดูรายงาน</small>
+            </div>
           </button>
           <button class="mode-btn" data-mode="barber">
             <span class="mode-icon">✂️</span>
-            <strong>ช่างตัดผม</strong>
-            <small>บันทึกงาน, ดูรายได้ส่วนตัว</small>
+            <div>
+              <strong>ช่างตัดผม</strong>
+              <small>บันทึกงาน, ดูรายได้ส่วนตัว</small>
+            </div>
           </button>
         </div>
       </div>
@@ -90,6 +114,15 @@ const App = {
         this.currentPage = 'record';
         this.renderLayout(); // โหลดหน้าหลักทันที
       });
+    });
+  },
+
+  // ===== ปุ่มกลับไปหน้าเลือกโหมด =====
+  bindBackButton() {
+    document.getElementById('back-to-welcome')?.addEventListener('click', () => {
+      this.userMode = null;
+      this.currentPage = 'welcome';
+      this.renderLayout();
     });
   },
 
