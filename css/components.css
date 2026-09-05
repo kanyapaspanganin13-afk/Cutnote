@@ -1,42 +1,219 @@
-/* --- Income Split --- */
-.income-split-box { margin-top: 14px; padding: 12px; background: #eff6ff; border-radius: var(--radius-sm); }
-.income-split-box h3 { font-size: 0.9rem; margin-bottom: 8px; color: #1e40af; }
-.split-row { display: flex; justify-content: space-between; padding: 4px 0; }
-.barber-income { color: #059669; }
-.shop-income { color: #4f46e5; }
-.income-tag { font-size: 0.7rem; background: #fef3c7; color: #92400e; }
+/* ===== ปรับปรุงสไตล์ให้เหมือนแอปจริง ===== */
 
-/* --- Guarantee Box --- */
-.guarantee-box { margin-top: 10px; padding: 12px; border-radius: var(--radius-sm); }
-.success-box { background: #d1fae5; color: #065f46; }
-.warning-box { background: #fef3c7; color: #92400e; }
-.info-box { background: #e0e7ff; color: #3730a3; }
-.guarantee-detail { margin-top: 6px; font-size: 0.9rem; }
-.diff-line { margin-top: 4px; padding-top: 4px; border-top: 1px dashed; }
-.final-sum { font-size: 1.05rem; }
-.link-btn { border: none; background: none; color: #3b82f6; cursor: pointer; text-decoration: underline; padding: 0 4px; }
+:root {
+  --radius-xl: 24px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+  --shadow-btn: 0 4px 12px rgba(0,0,0,0.1);
+}
 
-/* --- Account Page --- */
-.account-summary { display: flex; flex-direction: column; gap: 6px; }
-.acc-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); }
-.acc-row.total { font-size: 1.05rem; font-weight: 700; border-bottom: none; padding-top: 8px; margin-top: 4px; }
-.acc-row.warning { color: #d97706; }
-.history-list { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
-.history-item { padding: 10px; background: var(--neutral-50); border-radius: var(--radius-sm); }
-.hist-date { font-weight: 600; font-size: 0.9rem; }
-.hist-detail { font-size: 0.85rem; margin-top: 4px; color: var(--neutral-700); }
+/* --- การ์ดหลัก --- */
+.card {
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-lg);
+  border: none;
+}
 
-/* --- Holidays Page --- */
-.holiday-row { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--neutral-50); border-radius: var(--radius-sm); margin-bottom: 6px; }
-.holiday-info .holiday-date { font-weight: 600; }
-.holiday-actions { display: flex; align-items: center; gap: 8px; }
-.status-tag { font-size: 0.75rem; padding: 2px 8px; border-radius: 10px; font-weight: 500; }
-.status-pending { background: #fef3c7; color: #92400e; }
-.status-approved { background: #d1fae5; color: #065f46; }
-.status-taken { background: #e0e7ff; color: #3730a3; }
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
-/* --- Settings Page --- */
-.danger-btn { background: #fee2e2; color: #dc2626; }
-.danger-btn:hover { background: #fecaca; }
-.mt-8 { margin-top: 8px; }
-.mt-16 { margin-top: 16px; }
+.card-title::before {
+  content: "➕";
+  font-size: 1.2rem;
+}
+
+/* --- ปุ่มกลุ่มบนสุด (ประกัน, วันหยุด, ตั้งค่า) --- */
+.top-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.top-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 8px;
+  background: #f3f4f6;
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.top-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-btn);
+}
+
+.top-btn .icon {
+  font-size: 1.4rem;
+  padding: 8px;
+  border-radius: 50%;
+  margin-bottom: 4px;
+}
+
+.top-btn:nth-child(1) .icon { background: #fef3c7; color: #d97706; }
+.top-btn:nth-child(2) .icon { background: #fce7f3; color: #db2777; }
+.top-btn:nth-child(3) .icon { background: #e5e7eb; color: #4b5563; }
+
+/* --- ช่องกรอกข้อมูล --- */
+.form-group label {
+  font-weight: 600;
+  color: #4b5563;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-group input,
+.form-group select {
+  padding: 14px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  background: #f9fafb;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #2563eb;
+  background: #fff;
+}
+
+/* --- ปุ่มช่องทางชำระ --- */
+.payment-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.pay-btn {
+  padding: 14px 8px;
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pay-btn:nth-child(1) { background: #22c55e; }
+.pay-btn:nth-child(2) { background: #3b82f6; }
+.pay-btn:nth-child(3) { background: #6366f1; }
+
+.pay-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-btn);
+}
+
+/* --- ปุ่มบันทึกข้อมูลใหญ่ --- */
+.save-btn {
+  width: 100%;
+  padding: 18px;
+  background: #1e3a8a;
+  color: white;
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: 1.1rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+  box-shadow: 0 6px 20px rgba(30, 58, 138, 0.3);
+}
+
+.save-btn::before {
+  content: "🔒";
+  font-size: 1.3rem;
+}
+
+.save-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* --- สรุปยอด --- */
+.summary-card {
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+}
+
+.stat-box {
+  background: white;
+  border-radius: var(--radius-md);
+  padding: 14px 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+/* --- แถบเมนูด้านล่าง --- */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 10px 0;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
+  border-radius: 20px 20px 0 0;
+  z-index: 99;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  background: none;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.nav-item.active {
+  color: #2563eb;
+}
+
+.nav-item .icon {
+  font-size: 1.3rem;
+}
+
+/* --- ปรับระยะห่างด้านล่างให้พอดีกับเมนู --- */
+.content-area {
+  padding-bottom: 80px;
+}
+
+/* --- ส่วนอื่นๆ ที่มีอยู่แล้ว --- */
+.income-split-box { margin-top: 14px; padding: 16px; background: #eff6ff; border-radius: var(--radius-lg); }
+.guarantee-box { margin-top: 12px; padding: 16px; border-radius: var(--radius-lg); }
+.account-summary { gap: 8px; }
+.holiday-row { border-radius: var(--radius-md); }
+.btn { border-radius: var(--radius-md); font-weight: 700; }
