@@ -1,43 +1,52 @@
-/* ===== ปรับปรุงสไตล์ให้เหมือนแอปจริง ===== */
-
 :root {
-  --radius-xl: 24px;
-  --radius-lg: 16px;
-  --radius-md: 12px;
-  --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
-  --shadow-btn: 0 4px 12px rgba(0,0,0,0.1);
+  --radius-xl: 28px;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --shadow-main: 0 10px 30px rgba(0,0,0,0.08);
+  --shadow-btn: 0 4px 14px rgba(0,0,0,0.1);
+  --bg-page: #f0f4f8;
+  --card-bg: #ffffff;
+  --text-dark: #1f2937;
+  --text-gray: #6b7280;
+  --border-light: #e5e7eb;
 }
 
-/* --- การ์ดหลัก --- */
-.card {
-  background: #ffffff;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg-page);
+  padding: 16px;
+  padding-bottom: 90px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Thai", sans-serif;
+}
+
+/* ===== การ์ดหลักเหมือนในภาพ ===== */
+.app-card {
+  background: var(--card-bg);
   border-radius: var(--radius-xl);
   padding: 24px;
-  margin-bottom: 20px;
-  box-shadow: var(--shadow-lg);
-  border: none;
+  max-width: 420px;
+  margin: 0 auto;
+  box-shadow: var(--shadow-main);
 }
 
-.card-title {
-  font-size: 1.15rem;
+.app-title {
+  text-align: center;
+  font-size: 1.3rem;
   font-weight: 800;
+  color: var(--text-dark);
   margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  letter-spacing: 0.5px;
 }
 
-.card-title::before {
-  content: "➕";
-  font-size: 1.2rem;
-}
-
-/* --- ปุ่มกลุ่มบนสุด (ประกัน, วันหยุด, ตั้งค่า) --- */
-.top-buttons {
+/* ===== แถวปุ่มบนสุด 3 ปุ่ม ===== */
+.top-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
 .top-btn {
@@ -45,73 +54,173 @@
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  padding: 16px 8px;
+  padding: 14px 8px;
   background: #f3f4f6;
   border: none;
   border-radius: var(--radius-lg);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
+  color: var(--text-dark);
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .top-btn:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-btn);
 }
 
-.top-btn .icon {
-  font-size: 1.4rem;
-  padding: 8px;
-  border-radius: 50%;
-  margin-bottom: 4px;
+.top-btn .icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
 }
 
-.top-btn:nth-child(1) .icon { background: #fef3c7; color: #d97706; }
-.top-btn:nth-child(2) .icon { background: #fce7f3; color: #db2777; }
-.top-btn:nth-child(3) .icon { background: #e5e7eb; color: #4b5563; }
+.top-btn:nth-child(1) .icon-wrap { background: #fef3c7; color: #d97706; }
+.top-btn:nth-child(2) .icon-wrap { background: #fee2e2; color: #dc2626; }
+.top-btn:nth-child(3) .icon-wrap { background: #e5e7eb; color: #4b5563; }
 
-/* --- ช่องกรอกข้อมูล --- */
-.form-group label {
-  font-weight: 600;
-  color: #4b5563;
-  margin-bottom: 6px;
+/* ===== แถวช่องวันที่ + ประเภทลูกค้า ===== */
+.two-col-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.input-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 14px;
+  background: #f3f4f6;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  color: var(--text-dark);
+}
+
+.input-box input,
+.input-box select {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.9rem;
+  width: 100%;
+  color: var(--text-dark);
+}
+
+/* ===== ช่องเวลา เริ่ม-เสร็จ ===== */
+.time-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.time-box {
+  padding: 10px 14px;
+  background: #f3f4f6;
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-.form-group input,
-.form-group select {
-  padding: 14px 16px;
-  border: 2px solid #e5e7eb;
-  border-radius: var(--radius-md);
-  font-size: 1rem;
-  background: #f9fafb;
-}
-
-.form-group input:focus,
-.form-group select:focus {
+.time-box input {
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-size: 0.95rem;
+  text-align: center;
   outline: none;
-  border-color: #2563eb;
-  background: #fff;
 }
 
-/* --- ปุ่มช่องทางชำระ --- */
-.payment-buttons {
+/* ===== ช่องเลือกบริการ 3 ช่อง ===== */
+.service-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  margin: 16px 0;
+  margin-bottom: 16px;
+}
+
+.service-select {
+  padding: 10px 8px;
+  background: #f3f4f6;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.service-select select {
+  border: none;
+  background: transparent;
+  width: 100%;
+  outline: none;
+  font-size: 0.85rem;
+}
+
+/* ===== ช่องแสดงราคา + ทิป ===== */
+.price-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.price-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: #eff6ff;
+  border: 2px solid #3b82f6;
+  border-radius: var(--radius-lg);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #1f2937;
+}
+
+.price-box .b-icon {
+  font-size: 2rem;
+  color: #2563eb;
+}
+
+.tip-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 8px;
+  background: #f3f4f6;
+  border: 2px solid #d1d5db;
+  border-radius: var(--radius-lg);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+/* ===== ปุ่มช่องทางชำระ 3 ปุ่ม ===== */
+.pay-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
 }
 
 .pay-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
   padding: 14px 8px;
   border: none;
   border-radius: var(--radius-lg);
+  color: white;
   font-size: 0.9rem;
   font-weight: 700;
-  color: white;
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -125,10 +234,10 @@
   box-shadow: var(--shadow-btn);
 }
 
-/* --- ปุ่มบันทึกข้อมูลใหญ่ --- */
-.save-btn {
+/* ===== ปุ่มบันทึกข้อมูลใหญ่ ===== */
+.save-btn-main {
   width: 100%;
-  padding: 18px;
+  padding: 16px;
   background: #1e3a8a;
   color: white;
   border: none;
@@ -140,49 +249,30 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin-top: 12px;
-  box-shadow: 0 6px 20px rgba(30, 58, 138, 0.3);
+  box-shadow: 0 6px 20px rgba(30, 58, 138, 0.25);
+  transition: all 0.2s;
 }
 
-.save-btn::before {
-  content: "🔒";
-  font-size: 1.3rem;
-}
-
-.save-btn:hover {
+.save-btn-main:hover {
   transform: translateY(-2px);
 }
 
-/* --- สรุปยอด --- */
-.summary-card {
-  background: linear-gradient(135deg, #eff6ff, #dbeafe);
-}
-
-.stat-box {
-  background: white;
-  border-radius: var(--radius-md);
-  padding: 14px 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-
-.stat-value {
-  font-size: 1.25rem;
-  font-weight: 800;
-}
-
-/* --- แถบเมนูด้านล่าง --- */
+/* ===== แถบเมนูด้านล่าง ===== */
 .bottom-nav {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  background: white;
+  background: #ffffff;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   padding: 10px 0;
-  box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
-  border-radius: 20px 20px 0 0;
-  z-index: 99;
+  padding-bottom: 16px;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.06);
+  border-radius: 24px 24px 0 0;
+  z-index: 999;
+  max-width: 420px;
+  margin: 0 auto;
 }
 
 .nav-item {
@@ -194,26 +284,53 @@
   background: none;
   font-size: 0.75rem;
   font-weight: 600;
-  color: #6b7280;
+  color: #9ca3af;
   cursor: pointer;
+  transition: all 0.2s;
 }
 
 .nav-item.active {
   color: #2563eb;
 }
 
-.nav-item .icon {
+.nav-item .nav-icon {
   font-size: 1.3rem;
 }
 
-/* --- ปรับระยะห่างด้านล่างให้พอดีกับเมนู --- */
-.content-area {
-  padding-bottom: 80px;
+/* ===== ซ่อน/แสดงหน้า ===== */
+.page {
+  display: none;
 }
 
-/* --- ส่วนอื่นๆ ที่มีอยู่แล้ว --- */
-.income-split-box { margin-top: 14px; padding: 16px; background: #eff6ff; border-radius: var(--radius-lg); }
-.guarantee-box { margin-top: 12px; padding: 16px; border-radius: var(--radius-lg); }
-.account-summary { gap: 8px; }
-.holiday-row { border-radius: var(--radius-md); }
-.btn { border-radius: var(--radius-md); font-weight: 700; }
+.page.active {
+  display: block;
+}
+
+/* ===== หน้ารายงาน & บัญชี ===== */
+.info-card {
+  background: #f8fafc;
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 12px;
+}
+
+.info-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text-dark);
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 0.95rem;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+  font-weight: 700;
+  font-size: 1rem;
+}
