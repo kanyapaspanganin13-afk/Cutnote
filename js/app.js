@@ -64,13 +64,14 @@ const App = {
   },
 
   // ===== หน้าเลือกโหมด + ปุ่มจัดการระบบ ✅ ปรับโครงสร้างปุ่มใหม่ =====
-  renderWelcomePage() {
+renderWelcomePage() {
     return `
       <div class="welcome-container">
-        <h1 class="welcome-title">💈 BARBER SHOP</h1>
+        <!-- ด้านบนสุด: ชื่อแอป -->
+        <h1 class="app-name">💈 BARBER SHOP</h1>
         <p class="welcome-subtitle">กรุณาเลือกโหมดการใช้งาน</p>
 
-        <!-- ✅ ปุ่มจัดการระบบ 4 ปุ่ม มีไอคอน+ข้อความชัดเจน -->
+        <!-- แถวปุ่มจัดการระบบ 4 ปุ่ม -->
         <div class="system-buttons-row">
           <button class="system-btn" data-action="guarantee">
             <span class="system-icon">🛡️</span>
@@ -90,18 +91,18 @@ const App = {
           </button>
         </div>
 
-        <!-- ✅ ปุ่มเลือกโหมด -->
+        <!-- ปุ่มเลือกโหมด -->
         <div class="mode-buttons">
           <button class="mode-btn" data-mode="owner">
             <span class="mode-icon">👑</span>
-            <div>
+            <div class="mode-info">
               <strong>เจ้าของร้าน</strong>
               <small>ดูแลข้อมูลทั้งหมด, ปิดร้าน, ดูรายงาน</small>
             </div>
           </button>
           <button class="mode-btn" data-mode="barber">
             <span class="mode-icon">✂️</span>
-            <div>
+            <div class="mode-info">
               <strong>ช่างตัดผม</strong>
               <small>บันทึกงาน, ดูรายได้ส่วนตัว</small>
             </div>
@@ -110,7 +111,6 @@ const App = {
       </div>
     `;
   },
-
   bindWelcomeEvents() {
     // เลือกโหมดการใช้งาน
     document.querySelectorAll('.mode-btn').forEach(btn => {
