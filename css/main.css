@@ -29,6 +29,17 @@
   --border: #374151;
 }
 
+/* ===== ล้างค่าเบาเซอร์ default ของ button ทั้งหมด ===== */
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: inherit;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -47,10 +58,12 @@ body {
   max-width: 600px;
   margin: 0 auto;
   padding: 32px 20px 60px;
+  width: 100%;
 }
 
 .welcome-title,
-.app-title {
+.app-title,
+.app-name {
   font-size: 2.2rem;
   font-weight: 800;
   color: var(--primary);
@@ -67,32 +80,34 @@ body {
 
 /* ===== ปุ่มจัดการระบบ 4 ปุ่ม ===== */
 .system-buttons-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  margin-bottom: 28px;
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 12px !important;
+  margin-bottom: 28px !important;
+  width: 100%;
 }
 
 .system-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 14px 8px;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: var(--shadow-sm);
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  padding: 14px 8px !important;
+  background: var(--card-bg) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-sm) !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  box-shadow: var(--shadow-sm) !important;
+  width: 100% !important;
 }
 
 .system-btn:hover {
-  border-color: var(--primary);
-  background: var(--neutral-100);
+  border-color: var(--primary) !important;
+  background: var(--neutral-100) !important;
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-md) !important;
 }
 
 .system-btn:active {
@@ -102,6 +117,7 @@ body {
 .system-icon {
   font-size: 1.5rem;
   line-height: 1;
+  display: block;
 }
 
 .system-btn span:nth-child(2) {
@@ -113,41 +129,47 @@ body {
 
 /* ===== ปุ่มเลือกโหมด ===== */
 .mode-buttons {
-  display: grid;
-  gap: 16px;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+  width: 100%;
 }
 
 .mode-btn {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  width: 100%;
-  padding: 20px;
-  border: 2px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--card-bg);
-  cursor: pointer;
-  transition: all 0.25s ease;
-  text-align: left;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 16px !important;
+  width: 100% !important;
+  padding: 20px !important;
+  border: 2px solid var(--border) !important;
+  border-radius: var(--radius) !important;
+  background: var(--card-bg) !important;
+  cursor: pointer !important;
+  transition: all 0.25s ease !important;
+  text-align: left !important;
+  box-shadow: var(--shadow-sm) !important;
 }
 
 .mode-btn:hover {
   transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--primary);
+  box-shadow: var(--shadow-md) !important;
+  border-color: var(--primary) !important;
 }
 
-.mode-btn[data-mode="owner"]:hover { border-color: var(--success); }
-.mode-btn[data-mode="barber"]:hover { border-color: var(--warning); }
+.mode-btn[data-mode="owner"]:hover { border-color: var(--success) !important; }
+.mode-btn[data-mode="barber"]:hover { border-color: var(--warning) !important; }
 
 .mode-icon {
   font-size: 2.2rem;
   line-height: 1;
   flex-shrink: 0;
+  display: block;
 }
 
 .mode-btn strong {
-  display: block;
+  display: block !important;
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--neutral-900);
@@ -155,7 +177,7 @@ body {
 }
 
 .mode-btn small {
-  display: block;
+  display: block !important;
   font-size: 0.88rem;
   color: var(--neutral-700);
 }
@@ -167,20 +189,21 @@ body {
   }
 
   .welcome-title,
-  .app-title {
+  .app-title,
+  .app-name {
     font-size: 1.75rem;
   }
 
   .system-buttons-row {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
   }
 
   .system-btn {
-    flex-direction: row;
-    justify-content: flex-start;
-    padding: 12px 14px;
-    gap: 10px;
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    padding: 12px 14px !important;
+    gap: 10px !important;
   }
 
   .system-icon {
@@ -192,8 +215,8 @@ body {
   }
 
   .mode-btn {
-    padding: 16px;
-    gap: 14px;
+    padding: 16px !important;
+    gap: 14px !important;
   }
 
   .mode-icon {
