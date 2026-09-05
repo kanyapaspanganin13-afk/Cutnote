@@ -3,51 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cutnote — ระบบจัดการร้านตัดผม</title>
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/responsive.css">
+  <title> Cutnote — ระบบจัดการร้านตัดผม</title>
+
+  <!-- CSS Files (ใส่ ?v=1.0.1 เพื่อแก้ปัญหาแคช CSS ค้าง) -->
+  <link rel="stylesheet" href="css/main.css?v=1.0.1">
+  <link rel="stylesheet" href="css/components.css?v=1.0.1">
+  <link rel="stylesheet" href="css/responsive.css?v=1.0.1">
 </head>
 <body>
   <div id="app"></div>
 
   <!-- Core Data -->
-  <script src="js/data/models.js"></script>
-  <script src="js/data/store.js"></script>
+  <script src="js/data/models.js" defer></script>
+  <script src="js/data/store.js" defer></script>
 
   <!-- Services -->
-  <script src="js/services/audioService.js"></script>
-  <script src="js/services/backupService.js"></script>
-  <script src="js/services/lineService.js"></script>
+  <script src="js/services/audioService.js" defer></script>
+  <script src="js/services/backupService.js" defer></script>
+  <script src="js/services/lineService.js" defer></script>
 
   <!-- Utils -->
-  <script src="js/utils/formatters.js"></script>
-  <script src="js/utils/calculations.js"></script>
+  <script src="js/utils/formatters.js" defer></script>
+  <script src="js/utils/calculations.js" defer></script>
 
   <!-- Components -->
-  <script src="js/components/toast.js"></script>
-  <script src="js/components/modal.js"></script>
-  <script src="js/components/navbar.js"></script>
+  <script src="js/components/toast.js" defer></script>
+  <script src="js/components/modal.js" defer></script>
+  <script src="js/components/navbar.js" defer></script>
 
   <!-- Owner Modules -->
-  <script src="js/owner/ownerRecords.js"></script>
-  <script src="js/owner/ownerReports.js"></script>
-  <script src="js/owner/ownerSettings.js"></script>
+  <script src="js/owner/ownerRecords.js" defer></script>
+  <script src="js/owner/ownerReports.js" defer></script>
+  <script src="js/owner/ownerSettings.js" defer></script>
 
   <!-- Barber Modules -->
-  <script src="js/barber/barberRecords.js"></script>
-  <script src="js/barber/barberReports.js"></script>
-  <script src="js/barber/barberAccount.js"></script>
-  <script src="js/barber/barberHolidays.js"></script>
-  <script src="js/barber/barberSettings.js"></script>
+  <script src="js/barber/barberRecords.js" defer></script>
+  <script src="js/barber/barberReports.js" defer></script>
+  <script src="js/barber/barberAccount.js" defer></script>
+  <script src="js/barber/barberHolidays.js" defer></script>
+  <script src="js/barber/barberSettings.js" defer></script>
 
   <!-- Pages -->
-  <script src="js/pages/modeSelect.js"></script>
-  <script src="js/pages/ownerDashboard.js"></script>
-  <script src="js/pages/barberDashboard.js"></script>
-  <script src="js/pages/settingsPage.js"></script>
+  <script src="js/pages/modeSelect.js" defer></script>
+  <script src="js/pages/ownerDashboard.js" defer></script>
+  <script src="js/pages/barberDashboard.js" defer></script>
+  <script src="js/pages/settingsPage.js" defer></script>
 
-  <!-- App Core -->
-  <script src="js/app.js"></script>
+  <!-- App Core (ต้องอยู่ล่างสุดเสมอ) -->
+  <script src="js/app.js" defer></script>
 </body>
 </html>
