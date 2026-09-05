@@ -42,40 +42,76 @@ body {
   line-height: 1.5;
 }
 
-.mode-select-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 24px;
-  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+/* ===== คอนเทนเนอร์หลักของหน้า Welcome ===== */
+.welcome-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
 }
 
-.mode-card-wrapper {
-  width: 100%;
-  max-width: 520px;
-  text-align: center;
-}
-
+.welcome-title,
 .app-title {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 800;
   color: var(--primary);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  text-align: left;
 }
 
-.app-subtitle {
+.welcome-subtitle {
   font-size: 1rem;
   color: var(--neutral-700);
   margin-bottom: 24px;
+  text-align: left;
 }
 
-.mode-hint {
-  font-size: 0.9rem;
-  color: var(--neutral-700);
-  margin-bottom: 20px;
+/* ===== ปุ่มจัดการระบบ 4 ปุ่ม ===== */
+.system-buttons-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 28px;
 }
 
+.system-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 14px 8px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.system-btn:hover {
+  border-color: var(--primary);
+  background: var(--neutral-100);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.system-btn:active {
+  transform: scale(0.96);
+}
+
+.system-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.system-btn span:nth-child(2) {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--neutral-800);
+  white-space: nowrap;
+}
+
+/* ===== ปุ่มเลือกโหมด ===== */
 .mode-buttons {
   display: grid;
   gap: 16px;
@@ -83,15 +119,16 @@ body {
 
 .mode-btn {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 28px 24px;
+  gap: 16px;
+  width: 100%;
+  padding: 20px;
   border: 2px solid var(--border);
   border-radius: var(--radius);
-  background: white;
+  background: var(--card-bg);
   cursor: pointer;
   transition: all 0.25s ease;
+  text-align: left;
 }
 
 .mode-btn:hover {
@@ -100,9 +137,66 @@ body {
   border-color: var(--primary);
 }
 
-.mode-btn.owner-btn:hover { border-color: var(--success); }
-.mode-btn.barber-btn:hover { border-color: var(--warning); }
+.mode-btn[data-mode="owner"]:hover { border-color: var(--success); }
+.mode-btn[data-mode="barber"]:hover { border-color: var(--warning); }
 
-.mode-icon { font-size: 2.2rem; }
-.mode-name { font-size: 1.15rem; font-weight: 700; }
-.mode-desc { font-size: 0.9rem; color: var(--neutral-700); }
+.mode-icon {
+  font-size: 2.2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.mode-btn strong {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+  margin-bottom: 2px;
+}
+
+.mode-btn small {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--neutral-700);
+}
+
+/* ===== ปรับแต่ง responsive บนจอมือถือ ===== */
+@media (max-width: 600px) {
+  .welcome-container {
+    padding: 20px 14px 40px;
+  }
+
+  .welcome-title,
+  .app-title {
+    font-size: 1.75rem;
+  }
+
+  .system-buttons-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .system-btn {
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .system-icon {
+    font-size: 1.3rem;
+  }
+
+  .system-btn span:nth-child(2) {
+    font-size: 0.9rem;
+  }
+
+  .mode-btn {
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .mode-icon {
+    font-size: 1.8rem;
+  }
+}
